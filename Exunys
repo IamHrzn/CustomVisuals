@@ -1,0 +1,94 @@
+--// Again made by sexy man exunys
+
+local Camera = workspace.CurrentCamera
+			local Players = game:GetService("Players")
+			local RunService = game:GetService("RunService")
+			local UserInputService = game:GetService("UserInputService")
+			local TweenService = game:GetService("TweenService")
+			local LocalPlayer = Players.LocalPlayer
+			local Holding = false
+			local Locked = false
+			local Victim
+
+            _G.CircleSides = 12 -- How many sides the FOV circle would have.
+			_G.CircleColor = Color3.fromRGB(255, 255, 255) -- (RGB) Color that the FOV circle would appear as.
+			_G.CircleTransparency = 0.7 -- Transparency of the circle.
+			_G.CircleRadius = 80 -- The radius of the circle / FOV.
+			_G.CircleFilled = false -- Determines whether or not the circle is filled.
+			_G.CircleVisible = false -- Determines whether or not the circle is visible.
+			_G.CircleThickness = 0 -- The thickness of the circle.
+
+			local FOVCircle = Drawing.new("Circle")
+			FOVCircle.Position = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+			FOVCircle.Radius = _G.CircleRadius
+			FOVCircle.Filled = _G.CircleFilled
+			FOVCircle.Color = _G.CircleColor
+			FOVCircle.Visible = _G.CircleVisible
+			FOVCircle.Radius = _G.CircleRadius
+			FOVCircle.Transparency = _G.CircleTransparency
+			FOVCircle.NumSides = _G.CircleSides
+			FOVCircle.Thickness = _G.CircleThickness
+
+
+
+RunService.RenderStepped:Connect(function()
+	FOVCircle.Position = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y)
+	FOVCircle.Radius = _G.CircleRadius
+	FOVCircle.Filled = _G.CircleFilled
+	FOVCircle.Color = _G.CircleColor
+    FOVCircle.Visible = _G.CircleVisible
+	FOVCircle.Radius = _G.CircleRadius
+	FOVCircle.Transparency = _G.CircleTransparency
+	FOVCircle.NumSides = _G.CircleSides
+	FOVCircle.Thickness = _G.CircleThickness
+end)
+		
+		local Typing = false
+
+local ViewportSize_ = Camera.ViewportSize / 2
+local Axis_X, Axis_Y = ViewportSize_.X, ViewportSize_.Y
+
+local HorizontalLine = Drawing.new("Line")
+local VerticalLine = Drawing.new("Line")
+
+_G.SendNotifications = true   -- If set to true then the script would notify you frequently on any changes applied and when loaded / errored. (If a game can detect this, it is recommended to set it to false)
+_G.DefaultSettings = false   -- If set to true then the script would create a cro   sshair with the default settings regardless of any changes.
+_G.ToMouse = false   -- If set to true then the crosshair will be positioned to your mouse cursor's position. If set to false it will be positioned to the center of your screen.
+
+_G.CrosshairVisible = false   -- If set to true then the crosshair would be visible and vice versa.
+_G.CrosshairSize = 20   -- The size of the crosshair.
+_G.CrosshairThickness = 1   -- The thickness of the crosshair.
+_G.CrosshairColor = Color3.fromRGB(0, 255, 0)   -- The color of the crosshair
+_G.CrosshairTransparency = 1   -- The transparency of the crosshair.
+
+_G.DisableKey = Enum.KeyCode.Q   -- The key that enables / disables the crosshair.
+
+RunService.RenderStepped:Connect(function()
+    local Real_Size = _G.CrosshairSize / 2
+
+    HorizontalLine.Color = _G.CrosshairColor
+    HorizontalLine.Thickness = _G.CrosshairThickness
+    HorizontalLine.Visible = _G.CrosshairVisible
+    HorizontalLine.Transparency = _G.CrosshairTransparency
+    
+    VerticalLine.Color = _G.CrosshairColor
+    VerticalLine.Thickness = _G.CrosshairThickness
+    VerticalLine.Visible = _G.CrosshairVisible
+    VerticalLine.Transparency = _G.CrosshairTransparency
+    
+    if _G.ToMouse == true then
+        HorizontalLine.From = Vector2.new(UserInputService:GetMouseLocation().X - Real_Size, UserInputService:GetMouseLocation().Y)
+        HorizontalLine.To = Vector2.new(UserInputService:GetMouseLocation().X + Real_Size, UserInputService:GetMouseLocation().Y)
+        
+        VerticalLine.From = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y - Real_Size)
+        VerticalLine.To = Vector2.new(UserInputService:GetMouseLocation().X, UserInputService:GetMouseLocation().Y + Real_Size)
+    elseif _G.ToMouse == false then
+        HorizontalLine.From = Vector2.new(Axis_X - Real_Size, Axis_Y)
+        HorizontalLine.To = Vector2.new(Axis_X + Real_Size, Axis_Y)
+    
+        VerticalLine.From = Vector2.new(Axis_X, Axis_Y - Real_Size)
+        VerticalLine.To = Vector2.new(Axis_X, Axis_Y + Real_Size)
+    end
+end)
+
+
