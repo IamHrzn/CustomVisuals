@@ -1,4 +1,4 @@
---// Again made by sexy man exunys
+--// Again made by very good man exunys
 
 local Camera = workspace.CurrentCamera
 			local Players = game:GetService("Players")
